@@ -254,10 +254,14 @@
     }
 
     .nav-logo {
-      font-family: var(--font-head);
-      font-size: 1.1rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
     }
 
     .nav-logo .dot {
@@ -1900,7 +1904,9 @@
   <nav id="nav">
     <div class="wrap">
       <div class="nav-inner">
-        <a href="#hero" class="nav-logo">Alia<span class="dot">.</span></a>
+        <a href="#hero" class="nav-logo">
+          <img src="images/logo.png" alt="Alia Logo" class="logo-img" />
+        </a>
 
         <ul class="nav-center">
           <li><a href="#services">Services</a></li>
@@ -2613,7 +2619,9 @@
 
       <div class="footer-top">
         <div class="footer-brand">
-          <span class="footer-logo">Alia<span class="dot">.</span></span>
+          <a href="#hero" class="footer-logo">
+            <img src="images/logo.png" alt="Alia Logo" class="logo-img" />
+          </a>
           <p class="footer-desc">Agence digitale premium basée à Rabat. Nous créons des expériences numériques qui
             propulsent les entreprises marocaines vers le sommet.</p>
           <div class="footer-flag">🇲🇦 &nbsp;Fièrement basée au Maroc</div>
