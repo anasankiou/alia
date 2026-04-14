@@ -982,12 +982,13 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.6) saturate(0.8);
-      transition: filter 0.6s;
+      filter: brightness(1);
+      transition: filter 0.6s, transform 0.6s;
     }
 
     .services-image-wrap:hover img {
-      filter: brightness(0.8) saturate(1.1);
+      filter: brightness(1.05);
+      transform: scale(1.03);
     }
 
     .services-image-overlay {
@@ -995,7 +996,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(to top, rgba(2, 1, 10, 0.85) 0%, transparent 100%);
+      background: linear-gradient(to top, rgba(2, 1, 10, 0.5) 0%, transparent 100%);
       padding: 32px;
     }
 
@@ -1143,12 +1144,12 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.8s var(--ease), filter 0.5s;
-      filter: brightness(0.7) saturate(0.8);
+      filter: brightness(0.95);
     }
 
     .port-card:hover .port-img img {
       transform: scale(1.07);
-      filter: brightness(0.85) saturate(1.1);
+      filter: brightness(1.05) saturate(1.1);
     }
 
     .port-chip {
@@ -2910,8 +2911,8 @@
     const svcImages = [
       'images/siteweb.png',
       'images/appmob.png',
-      'images/ui ux.png',
-      'images/digital%20transofrmation.png',
+      'images/UIUX.png',
+      'images/digital transofrmation.png',
     ];
     const svcLabels = ['Création de Sites Web', 'Applications Web', 'UI / UX Design', 'Transformation Digitale'];
     const svcImg = document.getElementById('svcImage');
@@ -2919,21 +2920,31 @@
     const svcOvLabel = document.getElementById('svcOverlayLabel');
 
     document.querySelectorAll('.svc-item').forEach(item => {
-      item.querySelector('.svc-header').addEventListener('click', () => {
+      const header = item.querySelector('.svc-header');
+
+      const updateImage = () => {
+        const idx = parseInt(item.dataset.svc);
+        gsap.to(svcImg, {
+          opacity: 0, scale: 1.02, duration: 0.25, onComplete: () => {
+            svcImg.src = svcImages[idx];
+            svcOvNum.textContent = String(idx + 1).padStart(2, '0');
+            svcOvLabel.textContent = svcLabels[idx];
+            gsap.to(svcImg, { opacity: 1, scale: 1, duration: 0.4 });
+          }
+        });
+      };
+
+      header.addEventListener('click', () => {
         const isOpen = item.classList.contains('open');
         document.querySelectorAll('.svc-item').forEach(i => i.classList.remove('open'));
         if (!isOpen) {
           item.classList.add('open');
-          const idx = parseInt(item.dataset.svc);
-          gsap.to(svcImg, {
-            opacity: 0, scale: 1.05, duration: 0.3, onComplete: () => {
-              svcImg.src = svcImages[idx];
-              svcOvNum.textContent = String(idx + 1).padStart(2, '0');
-              svcOvLabel.textContent = svcLabels[idx];
-              gsap.to(svcImg, { opacity: 1, scale: 1, duration: 0.5 });
-            }
-          });
+          updateImage();
         }
+      });
+
+      item.addEventListener('mouseenter', () => {
+        updateImage();
       });
     });
     // Open first by default
